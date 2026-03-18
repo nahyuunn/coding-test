@@ -10,11 +10,13 @@ public class Solution {
             }
         }
         
-        int i = 0;
-        int[] answer = new int[stack.size()];
-        while (!stack.isEmpty()) {
-            answer[i++] = stack.pollLast();
+        int size = stack.size();
+        int[] answer = new int[size];
+        
+        for (int i = 0; i < size; i++) {
+            answer[i] = stack.pollLast();
         }
+        
         return answer;
     }
 }
