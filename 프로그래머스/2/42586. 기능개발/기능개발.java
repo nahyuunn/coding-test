@@ -3,24 +3,21 @@ import java.util.*;
 class Solution {
     public Queue<Integer> solution(int[] progresses, int[] speeds) {
         ArrayDeque<Integer> answer = new ArrayDeque<>();
-        ArrayDeque<Integer> q = new ArrayDeque<>();
-            
+
         int length = progresses.length;
+        int current = -1;
         
         for (int i = 0 ; i < length ; i++) {
             int rest = 100 - progresses[i];
             int day = rest / speeds[i];
-
-            if (rest % speeds[i] != 0) {
-                day++;
-            }
             
-            if (q.isEmpty() || day > q.peekLast()) {
+            if (rest % speeds[i] != 0) day++;
+            
+            if (day > current) {
                 answer.offerLast(1);
-                q.offerLast(day);
+                current = day;
             } else {
-                int cur = answer.pollLast() + 1;
-                answer.offerLast(cur);
+                answer.offerLast(answer.pollLast() + 1);
             }
         }
         return answer;
