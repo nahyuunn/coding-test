@@ -10,8 +10,8 @@ class Solution {
                 if ((a-2) * (b-2) == yellow) {
                     answer[0] = Math.max(a,b);
                     answer[1] = Math.min(a,b);
+                    break;
                 }
-
             }
         }
         return answer;
