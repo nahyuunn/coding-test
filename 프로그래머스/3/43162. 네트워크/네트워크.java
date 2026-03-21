@@ -1,44 +1,25 @@
 import java.util.*;
 
-class Solution {
-    StringBuilder sb = new StringBuilder();
-    
+class Solution {    
     public int solution(int n, int[][] computers) {
         int answer = 0;
         boolean[] visited = new boolean[n];
-        visited = new boolean[n];
         
-        List<List<Integer>> list = new ArrayList<>();
-        
-        for (int i = 0; i < n; i++) {
-            list.add(i, new ArrayList<>());
-        }
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (j != i && computers[i][j] == 1) {
-                    list.get(i).add(j);
-                }
-            }
-        }
         for (int i = 0; i < n; i++) {
             if(!visited[i]) {
-                dfs(i, n, visited, list);
+                dfs(i, n, visited, computers);
                 answer++;
             }
         }
         return answer;
     }
     
-    public void dfs(int current, int n, boolean[] visited, List<List<Integer>> list) {
+    public void dfs(int current, int n, boolean[] visited, int[][] computers) {
         visited[current] = true;
         
-        if (list.get(current).isEmpty()) {
-            return;
-        }
-        
-        for (int next: list.get(current)) {
-            if (!visited[next]) {
-                dfs(next, n, visited, list);
+        for (int next = 0; next < n; next++) {
+            if (current != next && !visited[next] && computers[current][next] == 1) {
+                dfs(next, n, visited, computers);
             }
         }
     }
