@@ -1,8 +1,8 @@
 import java.util.*;
 
 class Solution {
-    public List<Integer> solution(int[] array, int[][] commands) {
-        List<Integer> ans = new ArrayList<>();
+    public int[] solution(int[] array, int[][] commands) {
+        int[] ans = new int[commands.length];
         
         for (int i = 0 ; i < commands.length; i++) {
             int nowLength = commands[i][1] - commands[i][0] + 1;
@@ -14,7 +14,7 @@ class Solution {
             }
             
             Arrays.sort(nowArr);
-            ans.add(nowArr[commands[i][2]-1]);
+            ans[i] = nowArr[commands[i][2]-1];
         }
             
         return ans;
