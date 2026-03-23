@@ -1,22 +1,27 @@
 import java.util.*;
 
 public class Solution {
-    public int[] solution(int []arr) { 
+    public int[] solution(int []arr) {
         ArrayDeque<Integer> stack = new ArrayDeque<>();
         
-        for (int num : arr) {
-            if (stack.isEmpty() || num != stack.peek()) {
-                stack.push(num);
+        for(int num : arr) {
+            if (stack.isEmpty()) {
+                stack.offerLast(num);
+                continue;
             }
+            if (num == stack.peekLast()) {
+                stack.pollLast();
+            }
+            stack.offerLast(num);
         }
         
-        int size = stack.size();
-        int[] answer = new int[size];
+        int[] answer = new int[stack.size()];
+        int idx = 0;
         
-        for (int i = 0; i < size; i++) {
-            answer[i] = stack.pollLast();
+        while (!stack.isEmpty()) {
+            answer[idx++] = stack.pollFirst();
         }
-        
+
         return answer;
     }
 }
