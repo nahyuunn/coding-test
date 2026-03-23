@@ -7,8 +7,7 @@ class Solution {
         Map<String, Integer> map = new HashMap<>();
         
         for (String person: participant) {
-            map.putIfAbsent(person, 0);
-            map.put(person, map.get(person) +1);
+            map.put(person, map.getOrDefault(person, 0) +1);
         }
         
         for (String person: completion) {
