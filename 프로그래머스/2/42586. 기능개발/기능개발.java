@@ -13,7 +13,6 @@ class Solution {
         
         for (int i = 0; i < pl; i++) {
             int count = 1;
-
             for (int j = i+1; j <= pl; j++) {
                 if (j == pl || workDays[i] < workDays[j]) {
                     ans.add(count);
@@ -23,11 +22,13 @@ class Solution {
                 else count++;
             }
         }
+        
         int[] answer = new int[ans.size()];
-        int idx = 0;
-        for (int a : ans) {
-            answer[idx++] = a;
+
+        for (int i = 0; i < answer.length; i++) {
+            answer[i] = ans.get(i);
         }
+        
         return answer;
     }
 }
