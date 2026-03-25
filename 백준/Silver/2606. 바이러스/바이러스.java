@@ -7,7 +7,6 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
 
-
         int c = Integer.parseInt(br.readLine());
         int n = Integer.parseInt(br.readLine());
 
@@ -36,12 +35,12 @@ public class Main {
 
         while (!q.isEmpty()) {
             int cur = q.poll();
-            if (!visited[cur]) {
-                if (cur != 1) count++;
-                visited[cur] = true;
-                if (map.get(cur) == null) continue;
-                for (int nxt : map.get(cur)) {
-                    if (!visited[nxt]) q.offer(nxt);
+            if (cur != 1) count++;
+            if (map.get(cur) == null) continue;
+            for (int nxt : map.get(cur)) {
+                if (!visited[nxt]) {
+                    q.offer(nxt);
+                    visited[nxt] = true;
                 }
             }
         }
