@@ -1,38 +1,51 @@
 import java.util.*;
 
 class Solution {
-    static int[][] paths = {{0,1}, {1,0}, {0,-1}, {-1,0}};
-
-    public int solution(int[][] maps) {
-        boolean[][] visited = new boolean[maps.length][maps[0].length];
-        return bfs(maps.length-1, maps[0].length-1, visited, maps);
-    }
     
-    public int bfs(int n, int m, boolean[][] visited, int[][] maps) {
-        int count = 0;
+    int[][] direction = { {0, -1}, {1, 0}, {0, 1}, {-1, 0} };
+    
+    public int solution(int[][] maps) {
+        int answer = 0;
+        
+        int N = maps.length;
+        int M = maps[0].length;
+        
         Queue<int[]> q = new ArrayDeque<>();
+        
+        boolean[][] visited = new boolean[N][M];
+        
         q.offer(new int[]{0, 0, 1});
         visited[0][0] = true;
-        count++;
-        
-        while(!q.isEmpty()) {
+
+        while (!q.isEmpty()) {
             int[] cur = q.poll();
-            if (cur[0] == n && cur[1] == m) {
-                return cur[2];
+            int n = cur[0];
+            int m = cur[1];
+            int w = cur[2];
+            
+            if (n == N - 1 && m == M - 1) {
+                answer = w;
+                break;
             }
-            for(int[] path: paths) {
-                int nx = cur[0]+path[0];
-                int ny = cur[1]+path[1];
-                int nd = cur[2] + 1;
-                if (nx >= 0 && ny >= 0 && nx <= n && ny <= m) {
-                    if (!visited[nx][ny] && maps[nx][ny] == 1) {
-                        q.offer(new int[]{nx, ny, nd});
-                        visited[nx][ny] = true;
-                        count++;
-                    }   
+            
+            for (int i = 0; i < 4; i++) {
+                int stepN = direction[i][0];
+                int stepM = direction[i][1];
+                
+                int nxtN = n + stepN;
+                int nxtM = m + stepM;
+                
+                if (nxtN >= 0 && nxtN < N && nxtM >= 0 && nxtM < M) {
+                    if (!visited[nxtN][nxtM]) {
+                        if (maps[nxtN][nxtM] == 1) {
+                            q.offer(new int[] {nxtN, nxtM, w+1});
+                            visited[nxtN][nxtM] = true;
+                        }
+                    }
                 }
             }
+            answer = -1;
         }
-        return -1;
+        return answer;
     }
 }
