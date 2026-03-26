@@ -5,7 +5,7 @@ class Solution {
 
     public int solution(int n, int[][] computers) {
         
-        boolean[] visited = new boolean[n+1];
+        boolean[] visited = new boolean[n];
         
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
@@ -21,6 +21,7 @@ class Solution {
         
         Queue<Integer> q = new ArrayDeque<>();
         q.offer(n);
+        visited[n] = true;
 
         while (!q.isEmpty()){
             int cur = q.poll();
