@@ -4,37 +4,38 @@ class Solution {
     public int solution(int n, int[] lost, int[] reserve) {
         int answer = 0;
         
-        Set<Integer> lostSet = new TreeSet<>();
-        for (int l : lost) {
-            lostSet.add(l);
+        Queue<Integer> lostSet = new PriorityQueue<>();
+        Queue<Integer> reserveSet = new PriorityQueue<>();
+
+        for (int s : lost) {
+            lostSet.offer(s);
         }
         
-        Set<Integer> reserveSet = new TreeSet<>();
-        for (int r: reserve) {
+        for (int r : reserve) {
             if (lostSet.contains(r)) {
                 lostSet.remove(r);
+                reserveSet.remove(r);
             }
-            else {
-                reserveSet.add(r);
-            }
+            else reserveSet.offer(r);
         }
         
         int count = 0;
         
-        for (int cur: lostSet) {
+        while (!lostSet.isEmpty()) {
+            int cur = lostSet.poll();
+
             if (reserveSet.contains(cur - 1)) {
-                count++;
                 reserveSet.remove(cur - 1);
                 continue;
             }
             if (reserveSet.contains(cur + 1)) {
-                count++;
                 reserveSet.remove(cur + 1);
                 continue;
             }
+            else count++;
         }
         
-        answer = n - (lostSet.size()-count);
+        answer = n - count;
         return answer;
     }
 }
