@@ -2,72 +2,55 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
-        int t = Integer.parseInt(br.readLine());
+        int T = Integer.parseInt(br.readLine());
 
-        while (t-- > 0) {
+        while (T-- > 0) {
             String p = br.readLine();
             int n = Integer.parseInt(br.readLine());
             
+            ArrayDeque<String> q = new ArrayDeque<>();
             StringTokenizer st = new StringTokenizer(br.readLine(), "[,]");
             
-            ArrayDeque<Integer> adq = new ArrayDeque<>();
-
             for (int i = 0; i < n; i++) {
-                adq.offer(Integer.parseInt(st.nextToken()));
+                q.offer(st.nextToken());
             }
-            
-            sb.append(func(p, adq)).append("\n");
+            func(p, q);
         }
         System.out.println(sb);
     }
 
-    static String func(String p, ArrayDeque<Integer> adq) {
-        StringBuilder sb = new StringBuilder();
+    static void func(String p, ArrayDeque<String> q) {
         boolean flag = true;
-
-        for (char c : p.toCharArray()) {
-            if (c == 'R') {
+        for (char pc : p.toCharArray()) {
+            if (pc == 'R') {
                 flag = !flag;
-            } else if (c == 'D'){
-                if (adq.isEmpty()) {
-                    return "error";
-                } else {
-                    if (flag) adq.pollFirst();
-                    else adq.pollLast();
+            }
+            else if (pc == 'D') {
+                if (q.isEmpty()) {
+                    sb.append("error\n");
+                    return;
                 }
+                if (flag) q.pollFirst();
+                else q.pollLast();
             }
         }
-        
-        if (adq.isEmpty()) return ("[]");
+
+        if (q.isEmpty()) {
+            sb.append("[]\n");
+            return;
+        }
 
         sb.append("[");
-        
-        if (flag) {
-            while (!adq.isEmpty()) {
-                sb.append(adq.pollFirst());
-                if (!adq.isEmpty()) {
-                    sb.append(",");
-                } else {
-                    sb.append("]");
-                }
-            }
+        while (!q.isEmpty()) {
+            if (flag) sb.append(q.pollFirst());
+            else sb.append(q.pollLast());
+            if (!q.isEmpty()) sb.append(",");
+            else sb.append("]\n");
         }
-        
-        else {
-            while (!adq.isEmpty()) {
-                sb.append(adq.pollLast());
-                if (!adq.isEmpty()) {
-                    sb.append(",");
-                } else {
-                    sb.append("]");
-                }
-            }
-        }
-        
-        return sb.toString();
     }
 }
+
