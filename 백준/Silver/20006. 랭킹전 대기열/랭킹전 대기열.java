@@ -8,50 +8,44 @@ public class Main {
 
         StringBuilder sb = new StringBuilder();
 
-        Map<String, Set<String>> rooms = new LinkedHashMap<>();
-        Map<String, Integer> levels = new HashMap<>();
-
         int p = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
 
+        LinkedHashMap<String, Set<String>> room = new LinkedHashMap<>();
+        HashMap<String,Integer> levels = new HashMap<>();
+
         while (p-- > 0) {
             st = new StringTokenizer(br.readLine());
-            int nowLv = Integer.parseInt(st.nextToken());
-            String nowNickname = st.nextToken();
+            int lv = Integer.parseInt(st.nextToken());
+            String n = st.nextToken();
 
-            String room = findRoom(nowLv, m, rooms, levels);
-
-            if (room == null) {
-                rooms.put(nowNickname, new TreeSet<>());
-                rooms.get(nowNickname).add(nowNickname);
-            } else {
-                rooms.get(room).add(nowNickname);
-            }
-            levels.put(nowNickname, nowLv);
+            enterRoom(lv, n, m, room, levels);
         }
 
-        for (Map.Entry<String, Set<String>> entry : rooms.entrySet()) {
-            if (entry.getValue().size() == m) {
-                sb.append("Started!\n");
-            } else {
-                sb.append("Waiting!\n");
-            }
-            for (String nxt : entry.getValue()) {
-                sb.append(levels.get(nxt) + " " + nxt + "\n");
+        for (Set<String> set : room.values()) {
+            if (set.size() == m) sb.append("Started!\n");
+            else sb.append("Waiting!\n");
+
+            for (String n : set) {
+                sb.append(levels.get(n)).append(" ").append(n).append("\n");
             }
         }
         System.out.println(sb);
     }
 
-    static String findRoom(int level, int size, Map<String, Set<String>> rooms, Map<String, Integer> levels) {
-        for (String key : rooms.keySet()) {
-            int roomLevel = levels.get(key);
-            if (level >= roomLevel - 10 && level <= roomLevel + 10) {
-                if (rooms.get(key).size() < size) {
-                    return key;
+    static void enterRoom(int lv, String n, int m, LinkedHashMap<String, Set<String>> room, HashMap<String,Integer> levels) {
+        levels.put(n, lv);
+
+        for (String h : room.keySet()) {
+            int roomLv = levels.get(h);
+            if (lv >= roomLv -10 && lv <= roomLv + 10) {
+                if (room.get(h).size() < m) {
+                    room.get(h).add(n);
+                    return;
                 }
             }
         }
-        return null;
+        room.put(n, new TreeSet<>());
+        room.get(n).add(n);
     }
 }
