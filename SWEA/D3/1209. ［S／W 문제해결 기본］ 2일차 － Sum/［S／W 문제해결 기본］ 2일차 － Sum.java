@@ -5,21 +5,17 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-
-        Map<Integer, int[][]> map = new HashMap<>();
-
+        
         for (int i = 0; i < 10; i++) {
             int TC = Integer.parseInt(br.readLine());
-            map.put(TC, new int[100][100]);
-
+            int[][] arr = new int[100][100];
             for (int j = 0; j < 100; j++) {
                 StringTokenizer st  = new StringTokenizer(br.readLine());
                 for (int k = 0; k < 100; k++) {
-                    map.get(TC)[j][k] = Integer.parseInt(st.nextToken());
+                    arr[j][k] = Integer.parseInt(st.nextToken());
                 }
             }
-            int max = Math.max(getCrossMax(map.get(TC)), getRCMax(map.get(TC)));
-
+            int max = Math.max(getCrossMax(arr), getRCMax(arr));
             sb.append("#").append(TC).append(" ").append(max).append("\n");
         }
         System.out.println(sb);
