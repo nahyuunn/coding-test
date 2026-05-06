@@ -12,18 +12,9 @@ public class Solution {
             int num = Integer.parseInt(br.readLine());
             String target = br.readLine();
             String str = br.readLine();
-
-            char[] charArr = str.toCharArray();
-
+            
             for (int i = 0; i < str.length() - target.length() + 1; i++) {
-                StringBuilder now = new StringBuilder();
-                int nowIdx = i;
-
-                for (int j = 0; j < target.length(); j++) {
-                    now.append(charArr[nowIdx++]);
-                }
-
-                if (now.toString().equals(target)) {
+                if (target.equals(str.substring(i, i+target.length()))) {
                     count++;
                 }
             }
