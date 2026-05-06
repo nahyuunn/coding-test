@@ -1,34 +1,30 @@
 import java.util.*;
 
 class Solution {
-    public int[] solution(int[] progresses, int[] speeds) {
-        int pl = progresses.length;
-        int[] workDays = new int[pl];
-        List<Integer> ans = new ArrayList<>();
+    public List<Integer> solution(int[] progresses, int[] speeds) {
+        int[] calc = new int[progresses.length];
 
-        for (int i = 0; i < pl; i++) {
-            int n = 100 - progresses[i];
-            workDays[i] = n % speeds[i] == 0 ? n / speeds[i] : n / speeds[i] + 1;
+        for (int i = 0; i < progresses.length; i++) {
+            int now = (100 - progresses[i]) / speeds[i];
+            if ((100 - progresses[i]) % speeds[i] != 0) now++;
+            calc[i] = now;
         }
         
-        for (int i = 0; i < pl; i++) {
-            int count = 1;
-            for (int j = i+1; j <= pl; j++) {
-                if (j == pl || workDays[i] < workDays[j]) {
-                    ans.add(count);
-                    i = j-1;
-                    break;
-                }
-                else count++;
+        List<Integer> list = new ArrayList<>();
+        
+        int count = 1;
+        int idx = 0;
+        for (int i = 1; i < progresses.length; i++) {
+            if (calc[idx] >= calc[i]) {
+                count++;
+            } else {
+                list.add(count);
+                idx = i;
+                count = 1;
             }
         }
-        
-        int[] answer = new int[ans.size()];
+       list.add(count);
 
-        for (int i = 0; i < answer.length; i++) {
-            answer[i] = ans.get(i);
-        }
-        
-        return answer;
+        return list;
     }
 }
