@@ -8,24 +8,23 @@ public class Solution {
 
         for (int tc = 1; tc <= 10; tc++) {
             int N = Integer.parseInt(br.readLine());
-            StringTokenizer st1 = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
 
             List<String> list = new ArrayList<>();
             while (N-- > 0) {
-                list.add(st1.nextToken());
+                list.add(st.nextToken());
             }
 
             int fc = Integer.parseInt(br.readLine());
-            StringTokenizer st2 = new StringTokenizer(br.readLine(), "I");
+            st = new StringTokenizer(br.readLine());
 
             for (int i = 0; i < fc; i++) {
-                String[] funcArr = st2.nextToken().split(" ");
+                String cmd = st.nextToken();
+                int x = Integer.parseInt(st.nextToken());
+                int y = Integer.parseInt(st.nextToken());
 
-                int x = Integer.parseInt(funcArr[1]);
-                int y = Integer.parseInt(funcArr[2]);
-
-                for (int n = 3; n < y + 3; n++) {
-                    list.add(x++, funcArr[n]);
+                for (int n = 0; n < y; n++) {
+                    list.add(x++, st.nextToken());
                 }
             }
 
