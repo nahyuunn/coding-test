@@ -8,22 +8,18 @@ public class Solution {
 
         int tc = Integer.parseInt(br.readLine());
         for (int t = 1; t <= tc; t++) {
-            List<List<Character>> list = new ArrayList<>();
+            String[] list = new String[5];
 
             int max = 0;
             for (int i = 0; i < 5; i++) {
-                list.add(i, new ArrayList<>());
-                char[] arr = br.readLine().toCharArray();
-                for (char c: arr) {
-                    list.get(i).add(c);
-                }
-                max = Math.max(max, arr.length);
+                list[i] = br.readLine();
+                max = Math.max(max, list[i].length());
             }
             StringBuilder str = new StringBuilder();
             for (int i = 0; i < max; i++) {
                 for (int j = 0; j < 5; j++) {
-                    if (list.get(j).size() > i) {
-                        str.append(list.get(j).get(i));
+                    if (list[j].length() > i) {
+                        str.append(list[j].charAt(i));
                     }
                 }
             }
