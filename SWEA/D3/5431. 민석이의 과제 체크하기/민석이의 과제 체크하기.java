@@ -28,7 +28,7 @@ public class Solution {
 			int length = N - K;
 			for (int num: set) {
 				sb.append(num);
-				if (length-- > 0) sb.append(" ");
+				if (--length > 0) sb.append(" ");
 			}
 			if (t != T) sb.append("\n");
 		}
