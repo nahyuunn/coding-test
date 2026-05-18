@@ -38,7 +38,6 @@ public class Solution {
 					}
 				}
 			}
-			
 			sb.append("#").append(t).append(" ").append(ans).append(" ").append(max);
 			if (t != T) sb.append("\n");
 		}
@@ -46,6 +45,7 @@ public class Solution {
 	}
 	
 	private static int go(int i, int j,int[][] rooms, boolean[][] visited) {
+		
 		int count = 0;
 		
 		Queue<int[]> q = new ArrayDeque<>();
